@@ -1,0 +1,18 @@
+.active-question-no {
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 500;
+  color: var(--theme-color);
+}
+
+.total-question-no {
+  font-size: clamp(20px, 5vw, 30px);
+  font-weight: 500;
+  color: var(--darker-gray);
+}
+
+.quizHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+  

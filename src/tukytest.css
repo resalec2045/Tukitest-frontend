@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* light theme */
+:root {
+  --primary-text-color: #11052C; /* question text color */
+  --secondary-text-color: #2D264B; /* answer text color */
+  --theme-text-color: #000000;
+  --theme-color: #800080;
+  --theme-gradient: linear-gradient(to right, #800080, #FFC0CB);
+  --background-color: #E5E5E5;
+  --card-background-color: #FFFFFF;
+  --select-topic-bg: #FFFFFF;
+  --app-logo-color: #000000;
+  --button-text-color: #FFFFFF;
+  --outline-button-text-color: #800080;
+  --button-background: linear-gradient(90.04deg, #800080 0.03%, #FFC0CB 99.96%);
+  --selected-answer-color: #FFD6FF;
+  --info-text-color: #FF783F; /* skip tag text */
+  --info-background-color: #ffb23f26; /* skip tag background */
+  --border-color: #EAEAEA;
+  --answer-bg-color: #ffffff;
+  --disabled-card-color: #fbf4ecbc;
+  --disabled-button-color: #e7e8e9;
+  --success-color: #12B40E;
+  --success-light-color: #DDFFDC;
+  --danger-color: #FF143E;
+  --danger-light-color: #FFD7DE;
+  --white-color: #FFFFFF;
+  --black-color: #000000;
+  --dark-color: #282526;
+  --dark-gray-color: #9fa3a9;
+  --darker-gray-color: #817a8e;
+  --anek-malayalam-font: 'Anek Malayalam';
+  --active-button-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  --container-padding: 15px;
+  --page-top-padding: 30px;
+  --page-top-margin: 30px;
+
+  /*========== Font and typography ==========*/
+  --body-font: "Poppins", sans-serif;
+
+  /*========== Font weight ==========*/
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --big-font-size: 3.5rem;
+  --h1-font-size: 2.25rem;
+  --h2-font-size: 1.5rem;
+  --h3-font-size: 1.25rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+  --smaller-font-size: 0.813rem;
+  --tiny-font-size: 0.625rem;
+
+  /*========== Margenes Bottom ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --mb-0-25: 0.25rem;
+  --mb-0-5: 0.5rem;
+  --mb-0-75: 0.75rem;
+  --mb-1: 1rem;
+  --mb-1-5: 1.5rem;
+  --mb-2: 2rem;
+  --mb-2-5: 2.5rem;
+  --mb-3: 3rem;
+}
+
+/* Example usage */
+.container {
+  padding: var(--container-padding);
+}
+
+.page-top {
+  padding: var(--page-top-padding);
+  margin: var(--page-top-margin);
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  font-family: var(--body-font), sans-serif;
+  font-size: 1rem;
+  color: var(--theme-text-color);
+  background: var(--color-background);
+  line-height: 1;
+  overflow-x: hidden;
+  position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+figure,
+blockquote,
+dl,
+caption,
+dd {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 var(--padding-container);
+}
+
+.box {
+  width: 100%;
+  margin-top: calc(var(--mt) * 1px);
+}
+
+.box.flxRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pageCenter {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  padding-top: 50px;
+}
+
+.pageCenter.justifyCenter {
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex.spaceBetween {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex.flxEnd {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.flex.gap {
+  gap: var(--gap);
+}
+
+.centerCardContainer {
+  background: var(--card-background-color);
+  border-radius: 4px;
+  min-width: 773px;
+  min-height: 620px;
+  padding: 50px 10px 60px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .centerCardContainer {
+    min-width: 100%;
+  }
+}
+
+.highlightedText {
+  color: var(--color-themeText);
+}
+
+.highlightedText.themeColor {
+  color: var(--theme-color);
+}
+
+.logoContainer {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  .logoContainer {
+    margin-bottom: 30px;
+  }
+}
+
+.logoContainer svg {
+  width: 220px;
+}
+
+.logoContainer svg rect {
+  stroke: var(--color-appLogo);
+}
+
+.logoContainer svg path {
+  fill: var(--color-appLogo);
+}
+
+.resizableBox {
+  width: var(--width);
+}

@@ -1,0 +1,30 @@
+.question-container {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    max-width: 88%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .question-container {
+      max-width: 100%;
+    }
+  }
+  
+  .answers-container {
+    max-width: 78%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .answers-container {
+      max-width: 100%;
+    }
+  }
+  
+  .question-style {
+    font-size: clamp(18px, 4vw, 28px);
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: var(--color-primaryText);
+    line-height: 1.3;
+  }
+  

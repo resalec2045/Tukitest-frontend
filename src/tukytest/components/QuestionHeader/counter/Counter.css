@@ -1,0 +1,8 @@
+.timer-style {
+    min-width: 60px;
+    font-size: clamp(16px, 5vw, 24px);
+    font-weight: 500;
+    margin-left: 8px;
+    color: var(--theme-color);
+}
+  

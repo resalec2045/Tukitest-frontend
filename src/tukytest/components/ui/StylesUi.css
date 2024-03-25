@@ -1,0 +1,65 @@
+.ButtonStyle {
+  width: 195px;
+  min-height: 50px;
+  font-size: clamp(16px, 5vw, 24px);
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ButtonStyle:not(.outline) {
+  border: none;
+}
+
+.ButtonStyle.bold {
+  font-weight: 700;
+}
+
+.ButtonStyle:not(.bold) {
+  font-weight: 400;
+}
+
+.ButtonStyle.big {
+  width: 180px;
+}
+
+
+.ButtonStyle:active {
+  transform: scale(0.98);
+  /* box-shadow: ${({ theme }) => theme.shadows.activeButton}; */
+  transition: 0.2s all;
+}
+
+.ButtonStyle:disabled {
+  /* background: ${({ theme }) => theme.colors.disabledButton}; */
+  /* color: ${({ theme }) => theme.colors.darkGray}; */
+  cursor: not-allowed;
+  transform: unset;
+  box-shadow: unset;
+}
+
+.IconLeft {
+  margin-right: 10px;
+  display: flex;
+}
+
+.IconRight {
+  margin-left: 20px;
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .ButtonStyle.big {
+    width: 180px;
+  }
+  .ButtonStyle:not(.big) {
+    width: 150px;
+  }
+  .ButtonStyle {
+    min-height: 40px;
+    -webkit-tap-highlight-color: transparent;
+  }
+}

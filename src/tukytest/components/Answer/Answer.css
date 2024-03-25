@@ -1,0 +1,34 @@
+.answer-style {
+  font-size: clamp(18px, 4vw, 16px);
+  color: var(--secondary-text-color);
+  font-weight: 400;
+  border: 1px solid var(--border-color);
+  background-color: var(--answer-bg-color);
+  border-radius: 16px;
+  margin-top: clamp(13px, calc(10px + 6 * ((100vw - 600px) / 1320)), 16px);
+  cursor: pointer;
+}
+
+.highlight {
+  border-color: var(--theme-color);
+  background-color: var(--selected-answer-color);
+  transition: border 0.2s ease-in;
+}
+
+.answer-style input {
+  visibility: hidden;
+  margin: 0;
+}
+
+.answer-label {
+  padding: 18px;
+  display: flex;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .answer-label {
+    padding: 14px;
+  }
+}
+  
