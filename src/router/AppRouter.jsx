@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 // import { Loading } from '../components/loading/Loading';
 import QuizDetailsScreen from '../tukytest/QuizDetailsScreen/QuizDetailsScreen';
 import QuestionScreen from '../tukytest/questionScreen/QuestionScreen';
+import { Auth } from '../auth/pages/Auth';
 // import { useProductsStore } from '../hooks';
 // import { CreateNewProduct } from '../ecommerce/pages/createProduct/CreateNewProduct';
 
@@ -26,6 +27,7 @@ export const AppRouter = () => {
 
             <Route path='/*' element={<QuizDetailsScreen />} />
             <Route path='/tukytest/test/:testId' element={<QuestionScreen />} />
+            <Route path='/auth' element={<Auth />} />
 
           </>
       </Routes>

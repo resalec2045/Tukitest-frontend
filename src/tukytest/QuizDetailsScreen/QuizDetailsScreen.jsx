@@ -5,16 +5,16 @@ import { convertSeconds } from '../../utils/helpers';
 import Button from '../components/ui/Button';
 import { NavBar } from '../../components/navbar/NavBar';
 import { useEffect } from 'react';
-import { useAuthStore } from '../../hooks/useAuthStore';
+// import { useAuthStore } from '../../hooks/useAuthStore';
 
 const QuizDetailsScreen = () => {
     const { quizDetails } = useQuiz();
 
     const { selectedQuizTopic, totalQuestions, totalScore, totalTime } = quizDetails;
-    const {startLogin} = useAuthStore();
+    // const {startLogin} = useAuthStore();
 
     useEffect(() => {
-      startLogin({email: 'SKING', password: 100})
+    //   startLogin({email: 'SKING', password: 100})
     }, [])
     
     const goToQuestionScreen = () => {
