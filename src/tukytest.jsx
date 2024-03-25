@@ -1,8 +1,11 @@
 import './tukytest.css'
 import { useEffect } from 'react'
 import { useQuiz } from './types'
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import QuizProvider from './context/QuizProvider';
 import { AppRouter } from './router/AppRouter';
-// import QuestionScreen from './tukytest/questionScreen/QuestionScreen';
+import { store } from './store/store';
 
 function TukyTest() {
 
@@ -13,7 +16,17 @@ function TukyTest() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return <AppRouter />
+  return (
+    <>
+      <Provider store={store}>
+        <BrowserRouter basename='/'>
+          <QuizProvider>
+            <AppRouter/>
+          </QuizProvider>
+        </BrowserRouter>  
+      </Provider>
+    </>
+  )
 }
 
 export default TukyTest

@@ -7,9 +7,9 @@ import QuizHeader from '../components/QuestionHeader/QuizHeader';
 
 import { ScreenTypes } from '../../types';
 import { useTimer } from '../../hooks/useTimer';
+import Button from '../components/ui/Button';
 
 import './QuestionScreen.css';
-import Button from '../components/ui/Button';
 
 const QuestionScreen = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -83,45 +83,48 @@ const QuestionScreen = () => {
   useTimer(timer, quizDetails, setEndTime, setTimer, setShowTimerModal, showResultModal);
 
   return (
-    <div className="pageCenter">
-      <div className="quiz-container">
-        <QuizHeader
-          activeQuestion={activeQuestion}
-          totalQuestions={quizDetails.totalQuestions}
-          timer={timer}
-        />
-        <Question
-          question={question}
-          code={code}
-          image={image}
-          choices={choices}
-          type={type}
-          handleAnswerSelection={handleAnswerSelection}
-          selectedAnswer={selectedAnswer}
-        />
-        <div className="button-wrapper">
-          <Button
-            text={activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-            onClick={onClickNext}
-            icon={<i className='bx bx-chevron-right' ></i>}
-            iconPosition="right"
-            disabled={selectedAnswer.length === 0}
-          >
-            Siguiente
-          </Button>
+    <>
+      <div className="pageCenter">
+        <div className="quiz-container">
+          <QuizHeader
+            activeQuestion={activeQuestion}
+            totalQuestions={quizDetails.totalQuestions}
+            timer={timer}
+          />
+          <Question
+            question={question}
+            code={code}
+            image={image}
+            choices={choices}
+            type={type}
+            handleAnswerSelection={handleAnswerSelection}
+            selectedAnswer={selectedAnswer}
+          />
+          <div className="button-wrapper">
+            <Button
+              text={activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+              onClick={onClickNext}
+              icon={<i className='bx bx-chevron-right' ></i>}
+              iconPosition="right"
+              disabled={selectedAnswer.length === 0}
+            >
+              Siguiente
+            </Button>
+          </div>
         </div>
-      </div>
-      {(showTimerModal || showResultModal) && (
-        <ModalWrapper
-          title={showResultModal ? 'Done!' : 'Your time is up!'}
-          subtitle={`You have attempted ${result.length} questions in total.`}
-          onClick={handleModal}
-          // icon={showResultModal ?  <><img src={CheckIcon} alt="" /></> :  <><img src={TimerIcon} alt="" /></>}
-          buttonTitle="SHOW RESULT"
-        />
-      )}
+        {(showTimerModal || showResultModal) && (
+          <ModalWrapper
+            title={showResultModal ? 'Done!' : 'Your time is up!'}
+            subtitle={`You have attempted ${result.length} questions in total.`}
+            onClick={handleModal}
+            // icon={showResultModal ?  <><img src={CheckIcon} alt="" /></> :  <><img src={TimerIcon} alt="" /></>}
+            buttonTitle="SHOW RESULT"
+          />
+        )}
 
-    </div>
+      </div>
+    </>
+
   );
 };
 
