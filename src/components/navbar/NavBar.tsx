@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
-// import { useAuthStore } from "../../hooks";
 import "./navbar.css";
 
-export const NavBar = ({ type }: { type: string }): JSX.Element => {
+export const NavBar = ({ type }) => {
   const navigate = useNavigate();
   //   const { status, startLogout } = useAuthStore();
 
@@ -61,7 +60,7 @@ export const NavBar = ({ type }: { type: string }): JSX.Element => {
                   onClick={() => navigate("/ecommerce/cart")}
                   className="nav__link"
                 >
-                  <i className="bx bx-plus nav__icon">Crear test</i>
+                  <div className="nav__logo">Crear Test</div>
                 </a>
               </li>
             </ul>

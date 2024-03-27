@@ -1,0 +1,21 @@
+/* ResultOverviewStyle styles */
+.ResultOverviewStyle {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+  @media screen and (max-width: 768px) {
+    .ResultOverviewStyle {
+      margin-bottom: 30px;
+    }
+  }
+  .ResultOverviewStyle p {
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  .ResultOverviewStyle .HighlightedText {
+    /* Estilos para el texto resaltado */
+    color: #ff783f; /* Definir el color del texto resaltado */
+    /* Otros estilos personalizados según sea necesario */
+  }
+  

@@ -1,0 +1,9 @@
+/* RightAnswerContainer styles */
+.RightAnswerContainer {
+    font-size: 18px;
+    font-weight: 400;
+    color: #817a8e; /* darkerGray */
+    margin-top: 15px;
+    line-height: 1.2;
+  }
+  
