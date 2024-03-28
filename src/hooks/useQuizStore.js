@@ -18,7 +18,7 @@ export const useQuizStore = () => {
     dispatch(onChecking());
 
     try {
-      const { data } = await tukytestApi.get("", {});
+      const { data } = await tukytestApi.get("/quiz/getAllQuiz");
 
       dispatch(onGetAllQuizs({ ...data }));
     } catch (error) {
@@ -46,7 +46,7 @@ export const useQuizStore = () => {
     dispatch(onChecking());
 
     try {
-      const { data } = await tukytestApi.get("", { id });
+      const { data } = await tukytestApi.get("/quiz/getQuizById", { id });
 
       dispatch(onGetQuizById({ ...data }));
     } catch (error) {

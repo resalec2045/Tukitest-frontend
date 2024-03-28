@@ -5,11 +5,13 @@ import ModalWrapper from "../components/ui/ModalWrapper/ModalWrapper";
 import Question from "../components/Question/Question";
 import QuizHeader from "../components/QuestionHeader/QuizHeader";
 
-import { ScreenTypes } from "../../types";
+// import { ScreenTypes } from "../../types";
 import { useTimer } from "../../hooks/useTimer";
 import Button from "../components/ui/Button";
 
 import "./QuestionScreen.css";
+import { useQuizStore } from "../../hooks/useQuizStore";
+import { useParams } from "react-router-dom";
 
 const QuestionScreen = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -17,16 +19,17 @@ const QuestionScreen = () => {
   const [showTimerModal, setShowTimerModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
 
-  const {
-    questions,
-    quizDetails,
-    result,
-    setResult,
-    setCurrentScreen,
-    timer,
-    setTimer,
-    setEndTime,
-  } = useQuiz();
+  const { quiz } = useQuizStore();
+  const { testId } = useParams();
+  const { questions, totalTime, totalQuestions } = quiz.quiz.find(
+    (quiz) => quiz.id === parseInt(testId)
+  );
+
+  const { result, setResult, timer, setTimer, setEndTime } = useQuiz();
+
+  useEffect(() => {
+    setTimer(totalTime);
+  }, []);
 
   const currentQuestion = questions[activeQuestion];
 
@@ -38,14 +41,13 @@ const QuestionScreen = () => {
       selectedAnswer.length === correctAnswers.length &&
       selectedAnswer.every((answer) => correctAnswers.includes(answer));
 
-    setResult([...result, { ...currentQuestion, selectedAnswer, isMatch }]);
-
-    console.log(result);
+    // TODO: NO SE GUARDA LA PRIMER RESPUESTA
+    setResult([{ ...currentQuestion, selectedAnswer, isMatch }]);
 
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
-      const timeTaken = quizDetails.totalTime - timer;
+      const timeTaken = totalTime - timer;
       setEndTime(timeTaken);
       setShowResultModal(true);
     }
@@ -76,7 +78,7 @@ const QuestionScreen = () => {
   };
 
   const handleModal = () => {
-    setCurrentScreen(ScreenTypes.ResultScreen);
+    // setCurrentScreen(ScreenTypes.ResultScreen);
     document.body.style.overflow = "auto";
   };
 
@@ -88,7 +90,7 @@ const QuestionScreen = () => {
 
   useTimer(
     timer,
-    quizDetails,
+    totalTime,
     setEndTime,
     setTimer,
     setShowTimerModal,
@@ -102,7 +104,7 @@ const QuestionScreen = () => {
           <div className="quiz-container">
             <QuizHeader
               activeQuestion={activeQuestion}
-              totalQuestions={quizDetails.totalQuestions}
+              totalQuestions={totalQuestions}
               timer={timer}
             />
             <Question

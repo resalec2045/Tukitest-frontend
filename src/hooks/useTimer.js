@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const useTimer = (
   timer,
-  quizDetails,
+  totalTime,
   setEndTime,
   setTimer,
   setShowTimerModal,
@@ -10,12 +10,12 @@ export const useTimer = (
 ) => {
   useEffect(() => {
     if (timer <= 0) {
-      const timeTaken = quizDetails.totalTime;
+      const timeTaken = totalTime;
       setEndTime(timeTaken);
       setShowTimerModal(true);
       setTimer(0);
     }
-  }, [timer, quizDetails.totalTime, setEndTime, setShowTimerModal, setTimer]);
+  }, [timer, totalTime, setEndTime, setShowTimerModal, setTimer]);
 
   useEffect(() => {
     if (!showResultModal) {
@@ -24,6 +24,6 @@ export const useTimer = (
       }, 1000);
       return () => clearTimeout(countTimer);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer, setTimer]);
 };

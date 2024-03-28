@@ -11,7 +11,7 @@ export const quizsSlice = createSlice({
   initialState,
   reducers: {
     onChecking: (state) => {
-      state.status = "not-ready";
+      state.status = "checking";
       state.errorMessage = undefined;
     },
     onCreateQuiz: (state, { payload }) => {

@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { QuizContext, initialState } from "./QuizContext";
-import { quiz } from "../data/data";
+import { useQuizStore } from "../hooks/useQuizStore";
 
 const QuizProvider = ({ children }) => {
+  const { quiz } = useQuizStore();
+
   const [timer, setTimer] = useState(initialState.timer);
   const [endTime, setEndTime] = useState(initialState.endTime);
   const [quizTopic, setQuizTopic] = useState(initialState.quizTopic);
   const [result, setResult] = useState(initialState.result);
-
-  const [questions, setQuestions] = useState(
-    quiz[initialState.quizTopic].questions
+  const [currentScreen, setCurrentScreen] = useState(
+    initialState.currentScreen
   );
+
+  const [questions, setQuestions] = useState(quiz.questions);
 
   const {
     questions: quizQuestions,
     totalQuestions,
     totalTime,
     totalScore,
-  } = quiz[quizTopic];
+  } = quiz;
 
   const selectQuizTopic = (topic) => {
     setQuizTopic(topic);
@@ -37,6 +40,8 @@ const QuizProvider = ({ children }) => {
   };
 
   const quizContextValue = {
+    currentScreen,
+    setCurrentScreen,
     quizTopic,
     selectQuizTopic,
     questions,

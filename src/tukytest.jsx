@@ -1,32 +1,31 @@
-import './tukytest.css'
-import { useEffect } from 'react'
-import { useQuiz } from './types'
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import QuizProvider from './context/QuizProvider';
-import { AppRouter } from './router/AppRouter';
-import { store } from './store/store';
+import "./tukytest.css";
+import { useEffect } from "react";
+import { useQuiz } from "./types";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import QuizProvider from "./context/QuizProvider";
+import { AppRouter } from "./router/AppRouter";
+import { store } from "./store/store";
 
 function TukyTest() {
+  const { selectQuizTopic } = useQuiz();
 
-  const {selectQuizTopic} = useQuiz();
- 
   useEffect(() => {
-    selectQuizTopic('react')
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    selectQuizTopic("react");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <Provider store={store}>
-        <BrowserRouter basename='/'>
+        <BrowserRouter basename="/">
           <QuizProvider>
-            <AppRouter/>
+            <AppRouter />
           </QuizProvider>
-        </BrowserRouter>  
+        </BrowserRouter>
       </Provider>
     </>
-  )
+  );
 }
 
-export default TukyTest
+export default TukyTest;

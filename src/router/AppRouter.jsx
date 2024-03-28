@@ -6,11 +6,11 @@ import { Auth } from "../auth/pages/Auth";
 import ResultScreen from "../tukytest/resultScreen/ResultScreen";
 import { Loading } from "../components/loading/Loading";
 import { useAuthStore } from "../hooks/useAuthStore";
-import { useQuizStore } from "../hooks/useQuizStore";
+// import { useQuizStore } from "../hooks/useQuizStore";
 
 export const AppRouter = () => {
   const { status } = useAuthStore();
-  const { status: statusQuiz } = useQuizStore();
+  // const { status: statusQuiz } = useQuizStore();
 
   useEffect(() => {
     // checkAuthToken();
@@ -20,18 +20,14 @@ export const AppRouter = () => {
     return <Loading />;
   }
 
-  if (statusQuiz === "checking") {
-    return <Loading />;
-  }
-
   return (
     <>
       <Routes>
         <>
-          <Route path="/*" element={<QuizDetailsScreen />} />
+          <Route path="/*" element={<Auth />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/tukytest/test/:testId" element={<QuestionScreen />} />
           <Route path="/details" element={<QuizDetailsScreen />} />
-          <Route path="/auth" element={<Auth />} />
           <Route path="/tukytestReady" element={<ResultScreen />} />
         </>
       </Routes>
