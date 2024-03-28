@@ -11,13 +11,15 @@ import Button from "../components/ui/Button";
 
 import "./QuestionScreen.css";
 import { useQuizStore } from "../../hooks/useQuizStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const QuestionScreen = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState([]);
   const [showTimerModal, setShowTimerModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const { quiz } = useQuizStore();
   const { testId } = useParams();
@@ -41,8 +43,8 @@ const QuestionScreen = () => {
       selectedAnswer.length === correctAnswers.length &&
       selectedAnswer.every((answer) => correctAnswers.includes(answer));
 
-    // TODO: NO SE GUARDA LA PRIMER RESPUESTA
-    setResult([{ ...currentQuestion, selectedAnswer, isMatch }]);
+    // TODO: NO SE GUARDA LA ultima RESPUESTA
+    setResult([...result, { ...currentQuestion, selectedAnswer, isMatch }]);
 
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
@@ -78,8 +80,8 @@ const QuestionScreen = () => {
   };
 
   const handleModal = () => {
-    // setCurrentScreen(ScreenTypes.ResultScreen);
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = "";
+    navigate(`/result`);
   };
 
   useEffect(() => {

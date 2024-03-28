@@ -28,7 +28,7 @@ export const AppRouter = () => {
           <Route path="/auth" element={<Auth />} />
           <Route path="/tukytest/test/:testId" element={<QuestionScreen />} />
           <Route path="/details" element={<QuizDetailsScreen />} />
-          <Route path="/tukytestReady" element={<ResultScreen />} />
+          <Route path="/result" element={<ResultScreen />} />
         </>
       </Routes>
     </>

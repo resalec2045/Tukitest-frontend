@@ -1,95 +1,103 @@
 /* ResultScreenContainer styles */
 .ResultScreenContainer {
-    max-width: 900px;
-    margin: 60px auto;
-  }
-  @media screen and (max-width: 768px) {
-    .ResultScreenContainer {
-      width: 90%;
-      margin: 30px auto;
-      padding-top: 40px;
-    }
-  }
-  
-  /* InnerContainer styles */
-  .InnerContainer {
-    background: var(--card-background-color);
-    border-radius: 4px;
-    margin: 0 auto;
-    margin-bottom: 40px;
-    padding: 40px 90px 90px 90px;
-  }
-  @media screen and (max-width: 768px) {
-    .InnerContainer {
-      padding: 15px;
-    }
-  }
-  
-  /* QuestionContainer styles */
-  .QuestionContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-  }
-  @media screen and (max-width: 768px) {
-    .QuestionContainer {
-      flex-direction: column;
-    }
-  }
-  
-  /* QuestionNumber styles */
-  .QuestionNumber {
-    font-size: clamp(16px, 5vw, 24px);
-    font-weight: 500;
-    line-height: 1.3;
-    color: var(--primary-text-color);
-  }
-  
-  /* QuestionStyle styles */
-  .QuestionStyle {
-    font-size: clamp(16px, 5vw, 24px);
-    font-weight: 500;
-    line-height: 1.3;
-    color: var(--primary-text-color);
-    margin-bottom: 20px;
-  }
-  @media screen and (max-width: 768px) {
-    .QuestionStyle {
-      margin-bottom: 10px;
-    }
-  }
-  
-  /* Answer styles */
-  .Answer {
-    border: 1px solid var(--border-color);
+  max-width: 900px;
+  margin: 60px auto;
+}
+@media screen and (max-width: 768px) {
+  .ResultScreenContainer {
     width: 90%;
-    background: var(--answer-bg-color);
-    border-radius: 16px;
-    font-size: clamp(16px, 5vw, 18px);
-    font-weight: 600;
+    margin: 30px auto;
+    padding-top: 40px;
+  }
+}
+
+/* InnerContainer styles */
+.InnerContainer {
+  background: var(--card-background-color);
+  border-radius: 4px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  padding: 40px 90px 90px 90px;
+}
+@media screen and (max-width: 768px) {
+  .InnerContainer {
     padding: 15px;
-    color: var(--secondary-text-color);
-    margin-top: clamp(13px, calc(10px + 6 * ((100vw - 600px) / 1320)), 16px);
   }
-  @media screen and (max-width: 768px) {
-    .Answer {
-      width: 100%;
-    }
+}
+
+/* QuestionContainer styles */
+.QuestionContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+@media screen and (max-width: 768px) {
+  .QuestionContainer {
+    flex-direction: column;
   }
-  
-  /* Score styles */
+}
+
+/* QuestionNumber styles */
+.QuestionNumber {
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--primary-text-color);
+}
+
+/* QuestionStyle styles */
+.QuestionStyle {
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--primary-text-color);
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+  .QuestionStyle {
+    margin-bottom: 10px;
+  }
+}
+
+/* Answer styles */
+.Answer {
+  width: 90%;
+  border-radius: 16px;
+  font-size: clamp(16px, 5vw, 18px);
+  font-weight: 600;
+  padding: 15px;
+  color: var(--secondary-text-color);
+  margin-top: clamp(13px, calc(10px + 6 * ((100vw - 600px) / 1320)), 16px);
+}
+
+.correct {
+  background: var(--success-color);
+  color: var(--answer-bg-color);
+}
+
+.wrong {
+  background: var(--danger-color);
+  color: var(--answer-bg-color);
+}
+
+@media screen and (max-width: 768px) {
+  .Answer {
+    width: 100%;
+  }
+}
+
+/* Score styles */
+.Score {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--success-color);
+  margin-top: 4px;
+}
+@media screen and (max-width: 768px) {
   .Score {
-    font-weight: 500;
-    font-size: 16px;
-    color: var(--success-color);
-    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 10px;
   }
-  @media screen and (max-width: 768px) {
-    .Score {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 10px;
-      margin-right: 10px;
-    }
-  }
-  
+}
