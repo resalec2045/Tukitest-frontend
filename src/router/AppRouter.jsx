@@ -1,24 +1,27 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-// import { useAuthStore } from '../hooks/useAuthStore';
-// import { Loading } from '../components/loading/Loading';
 import QuizDetailsScreen from "../tukytest/QuizDetailsScreen/QuizDetailsScreen";
 import QuestionScreen from "../tukytest/questionScreen/QuestionScreen";
 import { Auth } from "../auth/pages/Auth";
 import ResultScreen from "../tukytest/resultScreen/ResultScreen";
-// import { useProductsStore } from '../hooks';
-// import { CreateNewProduct } from '../ecommerce/pages/createProduct/CreateNewProduct';
+import { Loading } from "../components/loading/Loading";
+import { useAuthStore } from "../hooks/useAuthStore";
+import { useQuizStore } from "../hooks/useQuizStore";
 
 export const AppRouter = () => {
-  //   const { status, checkAuthToken, user } = useAuthStore();
-  //   const { status: statusProduct } = useProductsStore();
+  const { status } = useAuthStore();
+  const { status: statusQuiz } = useQuizStore();
 
   useEffect(() => {
     // checkAuthToken();
   }, []);
 
   if (status === "checking") {
-    // return <Loading />;
+    return <Loading />;
+  }
+
+  if (statusQuiz === "checking") {
+    return <Loading />;
   }
 
   return (

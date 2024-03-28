@@ -1,5 +1,6 @@
 // import logo from '../../../assets/logo.png';
 
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../hooks/useAuthStore";
 import { useForm } from "../../../hooks/useForm";
 import "../Auth.css";
@@ -12,6 +13,8 @@ const loginFormFields = {
 export const Login = ({ selectPage }) => {
   const { startLogin } = useAuthStore();
 
+  const navigate = useNavigate();
+
   const {
     loginEmail,
     loginPassword,
@@ -21,6 +24,7 @@ export const Login = ({ selectPage }) => {
   const loginSubmit = (event) => {
     event.preventDefault();
     startLogin({ email: loginEmail, password: loginPassword });
+    navigate("/details");
   };
 
   return (
