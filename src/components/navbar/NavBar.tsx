@@ -37,7 +37,7 @@ export const NavBar = ({ type }) => {
                 </a>
               </li>
               <li className="nav__item">
-                <a onClick={() => navigate("/details")} className="nav__link">
+                <a onClick={() => navigate("/informe")} className="nav__link">
                   Informes
                 </a>
               </li>
