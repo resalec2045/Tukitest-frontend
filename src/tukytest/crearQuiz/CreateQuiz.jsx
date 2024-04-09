@@ -4,6 +4,12 @@ import { useState } from "react";
 import "./CreateQuiz.css";
 import { useForm } from "../../hooks/useForm";
 
+const quizFormField = {
+  name: "",
+  level: "",
+  totalTime: 0,
+};
+
 const questionFormField = {
   content: "",
   grade: 0,
@@ -14,6 +20,12 @@ const questionFormField = {
 export const CreateQuiz = () => {
   const { content, grade, isPublic, options, onInputChange, isFormValid } =
     useForm(questionFormField);
+  const {
+    quizName,
+    level,
+    totalTime,
+    onInputChange: onInputChangeQuiz,
+  } = useForm(quizFormField);
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({
     content: "",
@@ -96,6 +108,38 @@ export const CreateQuiz = () => {
   return (
     <>
       <NavBar type={"header"} />
+
+      <section className="section">
+        <form className="form grid" onSubmit={handleSubmit}>
+          <span className="section__title">Quiz</span>
+          <span className="section__subtitle">Datos sobre el quiz</span>
+          <input
+            type="text"
+            placeholder="Nombre del quiz"
+            className="input"
+            name="name"
+            value={quizName}
+            onChange={onInputChangeQuiz}
+          />
+          <input
+            type="text"
+            placeholder="Nivel"
+            className="input"
+            name="level"
+            value={level}
+            onChange={onInputChangeQuiz}
+          />
+          <input
+            type="number"
+            placeholder="Tiempo total (segundos)"
+            className="input"
+            name="totalTime"
+            value={totalTime}
+            onChange={onInputChangeQuiz}
+          />
+        </form>
+      </section>
+
       <section className="section">
         <form className="form grid" onSubmit={handleSubmit}>
           <span className="section__title">Contenido</span>
