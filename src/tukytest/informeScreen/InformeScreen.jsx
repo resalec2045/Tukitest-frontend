@@ -32,15 +32,21 @@ export const InformeScreen = () => {
             <tr>
               <th>Estudiante</th>
               <th>Nota</th>
+              <th>Grupo</th>
+              <th>Cantidad de preguntas</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Estudiante 1</td>
               <td>9.5</td>
+              <td>9.5</td>
+              <td>9.5</td>
             </tr>
             <tr>
               <td>Estudiante 2</td>
+              <td>8.7</td>
+              <td>8.7</td>
               <td>8.7</td>
             </tr>
           </tbody>

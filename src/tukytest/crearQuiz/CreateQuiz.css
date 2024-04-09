@@ -1,21 +1,97 @@
 .form {
-  place-items: center;
-  place-content: center;
+  margin: 0 auto;
 }
+
 .group-input {
-  position: relative;
-  width: 90%;
-  margin: 25px auto 0 auto;
+  margin-bottom: 20px;
 }
+
+.group-input_contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .input {
-  background: var(--body-color);
-  font-family: inherit;
-  outline: none;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.input-icon {
-  position: absolute;
-  font-size: 25px;
-  left: 0;
-  bottom: 10px;
-  color: var(--items-color);
+
+.input_content {
+  height: 100px;
+}
+
+.input_grade {
+  height: 35px;
+  width: 20%;
+}
+
+.question-container {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.question_buttons {
+  width: 300px;
+  justify-content: space-between;
+}
+
+.input_type {
+  width: 70%;
+}
+
+.input-checkbox {
+  margin-right: 10px;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: var(--title-color);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.options-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.options {
+  width: 100%;
+}
+
+.options-container {
+  margin-top: 10px;
+}
+
+.option {
+  margin-bottom: 10px;
+}
+
+.option input[type="text"] {
+  width: calc(100% - 30px);
+}
+
+.option button {
+  margin-left: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
 }
