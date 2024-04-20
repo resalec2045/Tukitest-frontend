@@ -26,11 +26,22 @@ export const AppRouter = () => {
         <>
           <Route path="/*" element={<Auth />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/tukytest/test/:testId" element={<QuestionScreen />} />
-          <Route path="/details" element={<QuizDetailsScreen />} />
-          <Route path="/result" element={<ResultScreen />} />
-          <Route path="/createQuiz" element={<CreateQuiz />} />
-          <Route path="/informe" element={<InformeScreen />} />
+          {status === "authenticated" ? (
+            <>
+              <Route
+                path="/tukytest/test/:testId"
+                element={<QuestionScreen />}
+              />
+              <Route path="/details" element={<QuizDetailsScreen />} />
+              <Route path="/result" element={<ResultScreen />} />
+              <Route path="/createQuiz" element={<CreateQuiz />} />
+              <Route path="/informe" element={<InformeScreen />} />
+            </>
+          ) : (
+            <>
+              <Route path="/*" element={<Auth />} />
+            </>
+          )}
         </>
       </Routes>
     </>

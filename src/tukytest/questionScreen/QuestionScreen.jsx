@@ -13,6 +13,11 @@ import "./QuestionScreen.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// Question Types
+// 1. MCQs | Multiple Choice | single
+// 2. boolean | true/false | single
+// 3. MAQs | Multiple Answers | multiple
+
 const QuestionScreen = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState([]);
@@ -34,7 +39,7 @@ const QuestionScreen = () => {
 
   const {
     CONTENIDO,
-    type = "MAQs",
+    TIPO,
     options,
     correctAnswers = options.filter((option) => option.ESCORRECTA === "S"),
   } = currentQuestion;
@@ -62,7 +67,7 @@ const QuestionScreen = () => {
   const handleAnswerSelection = (e) => {
     const { name, checked } = e.target;
 
-    if (type === "MAQs") {
+    if (TIPO === "MAQs") {
       if (selectedAnswer.includes(name)) {
         setSelectedAnswer((prevSelectedAnswer) =>
           prevSelectedAnswer.filter((element) => element !== name)
@@ -75,7 +80,7 @@ const QuestionScreen = () => {
       }
     }
 
-    if (type === "MCQs" || type === "boolean") {
+    if (TIPO === "MCQs" || TIPO === "boolean") {
       if (checked) {
         setSelectedAnswer([name]);
       }
@@ -115,7 +120,7 @@ const QuestionScreen = () => {
             <Question
               question={CONTENIDO}
               choices={options.map((option) => option.TEXTO)}
-              type={type}
+              type={TIPO}
               handleAnswerSelection={handleAnswerSelection}
               selectedAnswer={selectedAnswer}
             />

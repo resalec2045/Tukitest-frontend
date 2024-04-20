@@ -6,7 +6,7 @@ import { useAuthStore } from "../../hooks/useAuthStore";
 
 export const NavBar = ({ type }) => {
   const navigate = useNavigate();
-  const { status, startLogout } = useAuthStore();
+  const { status, user, startLogout } = useAuthStore();
 
   const [isFixed, setIsFixed] = useState(false);
 
@@ -31,24 +31,36 @@ export const NavBar = ({ type }) => {
           <div className="nav__logo">TUKITEST</div>
           <div className="nav__menu">
             <ul className="nav__list">
-              <li className="nav__item">
-                <a onClick={() => navigate("/details")} className="nav__link">
-                  Mis Tests
-                </a>
-              </li>
-              <li className="nav__item">
-                <a onClick={() => navigate("/informe")} className="nav__link">
-                  Informes
-                </a>
-              </li>
-              <li className="nav__item">
-                <a
-                  onClick={() => navigate("/createQuiz")}
-                  className="nav__link"
-                >
-                  Crear Test
-                </a>
-              </li>
+              {status === "authenticated" ? (
+                <>
+                  <li className="nav__item">
+                    <a
+                      onClick={() => navigate("/details")}
+                      className="nav__link"
+                    >
+                      Mis Tests
+                    </a>
+                  </li>
+                  <li className="nav__item">
+                    <a
+                      onClick={() => navigate("/informe")}
+                      className="nav__link"
+                    >
+                      Informes
+                    </a>
+                  </li>
+                </>
+              ) : null}
+              {user?.TIPO === "Profesor" || user?.TIPO === "Administrador" ? (
+                <li className="nav__item">
+                  <a
+                    onClick={() => navigate("/createQuiz")}
+                    className="nav__link"
+                  >
+                    Crear Test
+                  </a>
+                </li>
+              ) : null}
             </ul>
           </div>
           <div className="search">

@@ -22,7 +22,7 @@ const QuizDetailsScreen = () => {
 
   const generateQuiz = () => {
     return Array.from(quiz.quiz).map((quiz) => {
-      return <QuizSection key={quiz.id} quiz={quiz} />;
+      return <QuizSection key={quiz.ID + quiz.NOMBRE} quiz={quiz} />;
     });
   };
 
