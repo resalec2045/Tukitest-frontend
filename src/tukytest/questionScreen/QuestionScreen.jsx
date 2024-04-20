@@ -10,8 +10,8 @@ import { useTimer } from "../../hooks/useTimer";
 import Button from "../components/ui/Button";
 
 import "./QuestionScreen.css";
-import { useQuizStore } from "../../hooks/useQuizStore";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const QuestionScreen = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -20,36 +20,39 @@ const QuestionScreen = () => {
   const [showResultModal, setShowResultModal] = useState(false);
 
   const navigate = useNavigate();
-
-  const { quiz } = useQuizStore();
   const { testId } = useParams();
-  const { questions, totalTime, totalQuestions } = quiz.quiz.find(
-    (quiz) => quiz.id === parseInt(testId)
-  );
-
   const { result, setResult, timer, setTimer, setEndTime } = useQuiz();
 
+  const { quiz, questions } = useSelector((state) => state.quiz);
+  const { TIEMPO } = quiz.quiz.find((quiz) => quiz.ID === parseInt(testId));
+
   useEffect(() => {
-    setTimer(totalTime);
+    setTimer(TIEMPO);
   }, []);
 
-  const currentQuestion = questions[activeQuestion];
+  const currentQuestion = questions.question[activeQuestion];
 
-  const { question, type, choices, code, image, correctAnswers } =
-    currentQuestion;
+  const {
+    CONTENIDO,
+    type = "MAQs",
+    options,
+    correctAnswers = options.filter((option) => option.ESCORRECTA === "S"),
+  } = currentQuestion;
 
   const onClickNext = () => {
     const isMatch =
       selectedAnswer.length === correctAnswers.length &&
-      selectedAnswer.every((answer) => correctAnswers.includes(answer));
+      selectedAnswer.every((answer) =>
+        correctAnswers.every((ans) => ans.TEXTO === answer)
+      );
 
-    // TODO: NO SE GUARDA LA ultima RESPUESTA
     setResult([...result, { ...currentQuestion, selectedAnswer, isMatch }]);
 
-    if (activeQuestion !== questions.length - 1) {
+    if (activeQuestion !== questions.question.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
-      const timeTaken = totalTime - timer;
+      const timeTaken = TIEMPO - timer;
+      console.log("timeTaken", timeTaken);
       setEndTime(timeTaken);
       setShowResultModal(true);
     }
@@ -81,7 +84,7 @@ const QuestionScreen = () => {
 
   const handleModal = () => {
     document.body.style.overflow = "";
-    navigate(`/result`);
+    navigate("/result");
   };
 
   useEffect(() => {
@@ -92,7 +95,7 @@ const QuestionScreen = () => {
 
   useTimer(
     timer,
-    totalTime,
+    TIEMPO,
     setEndTime,
     setTimer,
     setShowTimerModal,
@@ -106,14 +109,12 @@ const QuestionScreen = () => {
           <div className="quiz-container">
             <QuizHeader
               activeQuestion={activeQuestion}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.question.length}
               timer={timer}
             />
             <Question
-              question={question}
-              code={code}
-              image={image}
-              choices={choices}
+              question={CONTENIDO}
+              choices={options.map((option) => option.TEXTO)}
               type={type}
               handleAnswerSelection={handleAnswerSelection}
               selectedAnswer={selectedAnswer}

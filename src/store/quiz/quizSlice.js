@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   status: "not-ready",
   quiz: {},
+  questions: {},
   errorMessage: undefined,
 };
 
@@ -29,6 +30,16 @@ export const quizsSlice = createSlice({
       state.quiz = payload;
       state.errorMessage = undefined;
     },
+    onGetQuizByGrupo: (state, { payload }) => {
+      state.status = "ready";
+      state.quiz = payload;
+      state.errorMessage = undefined;
+    },
+    onGetQuestionsByQuiz: (state, { payload }) => {
+      state.status = "ready";
+      state.questions = payload;
+      state.errorMessage = undefined;
+    },
     clearErrorMessage: (state) => {
       state.errorMessage = undefined;
     },
@@ -40,7 +51,9 @@ export const {
   onCreateQuiz,
   onGetAllQuizs,
   onGetQuizById,
+  onGetQuizByGrupo,
   clearErrorMessage,
+  onGetQuestionsByQuiz,
 } = quizsSlice.actions;
 
 export const quizsSliceReducer = quizsSlice.reducer;

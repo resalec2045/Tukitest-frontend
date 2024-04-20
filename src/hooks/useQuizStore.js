@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   onChecking,
-  onCreateQuiz,
   onGetAllQuizs,
   onGetQuizById,
   clearErrorMessage,
+  onGetQuizByGrupo,
+  onGetQuestionsByQuiz,
 } from "../store/quiz/quizSlice";
 
 import tukytestApi from "../api/tukytestApi";
@@ -28,13 +29,13 @@ export const useQuizStore = () => {
     }
   };
 
-  const startCreateQuiz = async () => {
+  const startGetQuizById = async (id) => {
     dispatch(onChecking());
 
     try {
-      const { data } = await tukytestApi.post("", {});
+      const { data } = await tukytestApi.get(`/quiz/getQuizById/${id}`);
 
-      dispatch(onCreateQuiz({ ...data }));
+      dispatch(onGetQuizById({ ...data }));
     } catch (error) {
       setTimeout(() => {
         dispatch(clearErrorMessage());
@@ -42,13 +43,27 @@ export const useQuizStore = () => {
     }
   };
 
-  const startGetQuizById = async (id) => {
+  const startGetQuizByGrupo = async (grupo) => {
     dispatch(onChecking());
 
     try {
-      const { data } = await tukytestApi.get("/quiz/getQuizById", { id });
+      const { data } = await tukytestApi.get(`/quiz/getQuizByGrupo/${grupo}`);
 
-      dispatch(onGetQuizById({ ...data }));
+      dispatch(onGetQuizByGrupo({ ...data }));
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const startGetQuestionsByQuiz = async (id) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await tukytestApi.get(`/quiz/getQuestionsByQuiz/${id}`);
+
+      dispatch(onGetQuestionsByQuiz({ ...data }));
     } catch (error) {
       setTimeout(() => {
         dispatch(clearErrorMessage());
@@ -64,7 +79,8 @@ export const useQuizStore = () => {
 
     // metodos
     startGetAllQuizs,
-    startCreateQuiz,
     startGetQuizById,
+    startGetQuizByGrupo,
+    startGetQuestionsByQuiz,
   };
 };

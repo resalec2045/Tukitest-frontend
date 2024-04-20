@@ -3,6 +3,12 @@
   max-width: 900px;
   margin: 60px auto;
 }
+
+.QuestionTitles {
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 768px) {
   .ResultScreenContainer {
     width: 90%;

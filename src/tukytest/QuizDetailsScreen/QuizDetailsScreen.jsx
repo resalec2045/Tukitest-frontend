@@ -5,13 +5,15 @@ import { useEffect } from "react";
 import { useQuizStore } from "../../hooks/useQuizStore";
 import { QuizSection } from "./QuizSection";
 import { Loading } from "../../components/loading/Loading";
+import { useSelector } from "react-redux";
 // import { useAuthStore } from '../../hooks/useAuthStore';
 
 const QuizDetailsScreen = () => {
-  const { startGetAllQuizs, quiz } = useQuizStore();
+  const { startGetQuizByGrupo, quiz } = useQuizStore();
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    startGetAllQuizs();
+    startGetQuizByGrupo(user.usuario.ID_1);
   }, []);
 
   if (quiz.quiz === undefined) {
@@ -19,7 +21,7 @@ const QuizDetailsScreen = () => {
   }
 
   const generateQuiz = () => {
-    return quiz.quiz.map((quiz) => {
+    return Array.from(quiz.quiz).map((quiz) => {
       return <QuizSection key={quiz.id} quiz={quiz} />;
     });
   };

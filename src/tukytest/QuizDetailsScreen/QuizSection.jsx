@@ -1,15 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { convertSeconds } from "../../utils/helpers";
 import Button from "../components/ui/Button";
+import { useQuizStore } from "../../hooks/useQuizStore";
+import { useEffect } from "react";
 
 export const QuizSection = ({ quiz }) => {
   const navigate = useNavigate();
 
-  const { totalQuestions, totalScore, totalTime, topic, id } = quiz;
+  const { CANTIDADPREGUNTAS, PUNTUACIONTOTAL, tiempo, CATEGORIA, ID } = quiz;
+  const { startGetQuestionsByQuiz } = useQuizStore();
+
+  useEffect(() => {
+    startGetQuestionsByQuiz(ID);
+  }, []);
 
   const goToQuestionScreen = () => {
-    navigate(`/tukytest/test/${id}`);
+    navigate(`/tukytest/test/${ID}`);
   };
+
   return (
     <>
       <section className="section">
@@ -18,21 +26,21 @@ export const QuizSection = ({ quiz }) => {
             <h2 className="app-title">TUKY TEST</h2>
             <div className="detail-text-container">
               <p className="detail-text">
-                Selected Quiz Topic:{" "}
-                <span className="highlighted-text">{topic}</span>
+                Tipo del Quiz:{" "}
+                <span className="highlighted-text">{CATEGORIA}</span>
               </p>
               <p className="detail-text">
-                Total questions to attempt:{" "}
-                <span className="highlighted-text">{totalQuestions}</span>
+                Total de preguntas:{" "}
+                <span className="highlighted-text">{CANTIDADPREGUNTAS}</span>
               </p>
               <p className="detail-text">
-                Score in total:{" "}
-                <span className="highlighted-text">{totalScore}</span>
+                Puntuacion total:{" "}
+                <span className="highlighted-text">{PUNTUACIONTOTAL}</span>
               </p>
               <p className="detail-text">
-                Total time:{" "}
+                Tiempo total:{" "}
                 <span className="highlighted-text">
-                  {convertSeconds(totalTime)}
+                  {convertSeconds(tiempo)}
                 </span>
               </p>
               <p className="detail-text">Ya va a comenzar su tuki test</p>

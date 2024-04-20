@@ -10,7 +10,7 @@ const RightAnswer = ({ correctAnswers, choices }) => {
 
         return (
           <span key={index} className="HighlightedText">
-            {`${label} (${item})${
+            {`${label} (${item.TEXTO})${
               index !== correctAnswers.length - 1 ? ", " : ""
             }`}
           </span>

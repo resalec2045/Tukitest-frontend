@@ -10,6 +10,14 @@ import { NavBar } from "../../components/navbar/NavBar";
 const ResultScreen = () => {
   const { result } = useQuiz();
 
+  const correctAnswers = result
+    .map((res) =>
+      res.options.ESCORRECTA === "S"
+        ? res.options
+        : res.options.filter((ans) => ans.ESCORRECTA === "S")
+    )
+    .flat();
+
   return (
     <>
       <NavBar type={"header"} />
@@ -20,47 +28,46 @@ const ResultScreen = () => {
             {result.map(
               (
                 {
-                  question,
-                  choices,
-                  //   code,
-                  //   image,
-                  correctAnswers,
+                  ID,
+                  TITULO,
+                  CONTENIDO,
+                  options,
                   selectedAnswer,
-                  score,
+                  CALIFICACION,
                   isMatch,
                 },
                 index
               ) => {
                 return (
-                  <div key={question} className="QuestionContainer">
+                  <div key={ID} className="QuestionContainer">
                     <div className="">
                       <div className="flex">
                         <h6 className="QuestionNumber">{`${index + 1}. `}</h6>
-                        <span className="QuestionStyle">{question}</span>
+                        <div className="QuestionTitles">
+                          <span className="QuestionStyle">{TITULO}</span>
+                          <span>{CONTENIDO}</span>
+                        </div>
                       </div>
                       <div>
-                        {/* {code && <CodeSnippet code={code} language="javascript" />}
-                        {image && <QuizImage image={image} />} */}
                         <ul>
-                          {choices.map((ans, index) => {
+                          {options.map((ans, index) => {
                             // Convert index to alphabet character
                             const label = String.fromCharCode(65 + index);
                             const correct =
-                              selectedAnswer.includes(ans) &&
+                              selectedAnswer.includes(ans.TEXTO) &&
                               correctAnswers.includes(ans);
                             const wrong =
-                              selectedAnswer.includes(ans) &&
+                              selectedAnswer.includes(ans.TEXTO) &&
                               !correctAnswers.includes(ans);
-
                             return (
                               <li
-                                key={ans}
+                                key={`${ans}-${index}`} // Utilizar una combinación única de ans e index
                                 className={`Answer ${
                                   correct ? "correct" : ""
                                 } ${wrong ? "wrong" : ""}`}
                               >
                                 <span>{label}.</span>
-                                {ans}
+                                {ans.TEXTO}
                               </li>
                             );
                           })}
@@ -69,14 +76,14 @@ const ResultScreen = () => {
                         {!isMatch && (
                           <RightAnswer
                             correctAnswers={correctAnswers}
-                            choices={choices}
+                            choices={options}
                           />
                         )}
                       </div>
                     </div>
 
                     <span className={`Score ${isMatch ? "right" : ""}`}>
-                      {`Score ${isMatch ? score : 0}`}
+                      {`Score ${isMatch ? CALIFICACION : 0}`}
                     </span>
                   </div>
                 );

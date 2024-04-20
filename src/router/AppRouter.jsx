@@ -8,11 +8,9 @@ import { Loading } from "../components/loading/Loading";
 import { useAuthStore } from "../hooks/useAuthStore";
 import { CreateQuiz } from "../tukytest/crearQuiz/CreateQuiz";
 import { InformeScreen } from "../tukytest/informeScreen/InformeScreen";
-// import { useQuizStore } from "../hooks/useQuizStore";
 
 export const AppRouter = () => {
   const { status } = useAuthStore();
-  // const { status: statusQuiz } = useQuizStore();
 
   useEffect(() => {
     // checkAuthToken();
