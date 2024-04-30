@@ -2,7 +2,6 @@ import "./ResultScreen.css"; // Importar los estilos CSS clásicos
 
 import { useQuiz } from "../../context/QuizContext";
 
-import Button from "../components/ui/Button";
 import ResultOverview from "./ResultOverview/ResultOverview";
 import RightAnswer from "./RightAnswer/RightAnswer";
 import { NavBar } from "../../components/navbar/NavBar";
@@ -90,7 +89,7 @@ const ResultScreen = () => {
               }
             )}
           </div>
-          <div className="flex flxEnd">
+          {/* <div className="flex flxEnd">
             <Button
               text="RETRY"
               //   onClick={}
@@ -98,7 +97,7 @@ const ResultScreen = () => {
               iconPosition="left"
               bold
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

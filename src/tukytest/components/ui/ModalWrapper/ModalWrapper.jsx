@@ -1,14 +1,6 @@
-import Button from '../Button';
-import './ModalWrapper.css'; // Importa los estilos CSS
-// import Button from '../Button';
-
-const ModalWrapper = ({
-  title,
-  subtitle,
-  icon,
-  buttonTitle,
-  onClick,
-}) => {
+import Button from "../Button";
+import "./ModalWrapper.css";
+const ModalWrapper = ({ title, subtitle, icon, buttonTitle, onClick }) => {
   return (
     <div className="modal-container">
       <div className="modal-content">
@@ -19,6 +11,6 @@ const ModalWrapper = ({
       </div>
     </div>
   );
-}
+};
 
 export default ModalWrapper;

@@ -52,14 +52,25 @@ export const NavBar = ({ type }) => {
                 </>
               ) : null}
               {user?.TIPO === "Profesor" || user?.TIPO === "Administrador" ? (
-                <li className="nav__item">
-                  <a
-                    onClick={() => navigate("/createQuiz")}
-                    className="nav__link"
-                  >
-                    Crear Test
-                  </a>
-                </li>
+                <>
+                  <li className="nav__item">
+                    <a
+                      onClick={() => navigate("/createQuiz")}
+                      className="nav__link"
+                    >
+                      Crear Test
+                    </a>
+                  </li>
+                  {/* TODO: HACER QUE SOLO EL ADMIN PUEDA VERLO */}
+                  {/* <li className="nav__item">
+                    <a
+                      onClick={() => navigate("/informe")}
+                      className="nav__link"
+                    >
+                      Informes
+                    </a>
+                  </li> */}
+                </>
               ) : null}
             </ul>
           </div>

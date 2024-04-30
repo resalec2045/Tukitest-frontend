@@ -12,6 +12,7 @@ import Button from "../components/ui/Button";
 import "./QuestionScreen.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useQuizStore } from "../../hooks/useQuizStore";
 
 // Question Types
 // 1. MCQs | Multiple Choice | single
@@ -28,11 +29,15 @@ const QuestionScreen = () => {
   const { testId } = useParams();
   const { result, setResult, timer, setTimer, setEndTime } = useQuiz();
 
+  const { startInsertOptionsByPerson } = useQuizStore();
+  const { usuario } = useSelector((state) => state.auth.user);
+
   const { quiz, questions } = useSelector((state) => state.quiz);
   const { TIEMPO } = quiz.quiz.find((quiz) => quiz.ID === parseInt(testId));
 
   useEffect(() => {
     setTimer(TIEMPO);
+    setResult([]);
   }, []);
 
   const currentQuestion = questions.question[activeQuestion];
@@ -89,6 +94,7 @@ const QuestionScreen = () => {
 
   const handleModal = () => {
     document.body.style.overflow = "";
+    startInsertOptionsByPerson(usuario.ID, result);
     navigate("/result");
   };
 

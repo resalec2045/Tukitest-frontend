@@ -71,6 +71,33 @@ export const useQuizStore = () => {
     }
   };
 
+  const startInsertOptionsByPerson = async (id, results) => {
+    dispatch(onChecking());
+    const listSelectedAnswer = [];
+    const listQuestions = [];
+
+    results.forEach((result) => {
+      listSelectedAnswer.push(result.selectedAnswer);
+      listQuestions.push(result.ID);
+    });
+
+    console.log(id, listSelectedAnswer, listQuestions);
+
+    try {
+      const { data } = await tukytestApi.post(`/quiz/insertOptionsByPerson`, {
+        id,
+        listSelectedAnswer,
+        listQuestions,
+      });
+
+      console.log(data);
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
   return {
     // Propiedades
     status,
@@ -82,5 +109,6 @@ export const useQuizStore = () => {
     startGetQuizById,
     startGetQuizByGrupo,
     startGetQuestionsByQuiz,
+    startInsertOptionsByPerson,
   };
 };
