@@ -3,37 +3,52 @@ import { useState } from "react";
 
 import "./CreateQuiz.css";
 import { useForm } from "../../hooks/useForm";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import Swal from "sweetalert2";
+import { useQuizStore } from "../../hooks/useQuizStore";
 
 const quizFormField = {
-  name: "",
+  quizName: "Matematica",
   level: "",
-  totalTime: 0,
+  totalTime: "12354",
+  categoria: "Cosito",
+  cantPreguntas: "12",
+  puntuacionTotal: "10",
+  horaProgramada: "12:20",
+  aprobacion: "5",
 };
 
-const questionFormField = {
-  content: "",
-  grade: 0,
-  isPublic: false,
-  options: [{ text: "", isCorrect: false }],
-};
+// const questionFormField = {
+//   content: "",
+//   grade: 0,
+//   isPublic: false,
+//   options: [{ text: "", isCorrect: false }],
+// };
 
 export const CreateQuiz = () => {
-  const { content, grade, isPublic, options, onInputChange, isFormValid } =
-    useForm(questionFormField);
   const {
     quizName,
     level,
     totalTime,
+    categoria,
+    cantPreguntas,
+    puntuacionTotal,
+    horaProgramada,
+    aprobacion,
     onInputChange: onInputChangeQuiz,
   } = useForm(quizFormField);
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({
+    title: "",
     content: "",
     grade: 0,
     isPublic: false,
     type: "",
     options: [{ text: "", isCorrect: false }],
   });
+
+  const { grupo } = useAuthStore();
+  const { startInsertQuiz } = useQuizStore();
 
   const [editIndex, setEditIndex] = useState(null);
 
@@ -75,7 +90,18 @@ export const CreateQuiz = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleEditQuestion = (index) => {
+    setCurrentQuestion(questions[index]);
+    setEditIndex(index);
+  };
+
+  const handleDeleteQuestion = (index) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions.splice(index, 1);
+    setQuestions(updatedQuestions);
+  };
+
+  const handleAddQuestion = (e) => {
     e.preventDefault();
     if (editIndex !== null) {
       const updatedQuestions = [...questions];
@@ -86,6 +112,7 @@ export const CreateQuiz = () => {
       setQuestions((prevQuestions) => [...prevQuestions, currentQuestion]);
     }
     setCurrentQuestion({
+      title: "",
       content: "",
       grade: 0,
       isPublic: false,
@@ -94,15 +121,30 @@ export const CreateQuiz = () => {
     });
   };
 
-  const handleEditQuestion = (index) => {
-    setCurrentQuestion(questions[index]);
-    setEditIndex(index);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Esto detiene la recarga de la página predeterminada
 
-  const handleDeleteQuestion = (index) => {
-    const updatedQuestions = [...questions];
-    updatedQuestions.splice(index, 1);
-    setQuestions(updatedQuestions);
+    startInsertQuiz(
+      {
+        quizName,
+        level,
+        totalTime,
+        categoria,
+        cantPreguntas,
+        puntuacionTotal,
+        horaProgramada,
+        aprobacion,
+      },
+      questions
+    );
+
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Quiz creado correctamente",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
@@ -117,12 +159,12 @@ export const CreateQuiz = () => {
             type="text"
             placeholder="Nombre del quiz"
             className="input"
-            name="name"
+            name="quizName"
             value={quizName}
             onChange={onInputChangeQuiz}
           />
           <input
-            type="text"
+            type="date"
             placeholder="Nivel"
             className="input"
             name="level"
@@ -137,12 +179,67 @@ export const CreateQuiz = () => {
             value={totalTime}
             onChange={onInputChangeQuiz}
           />
+          <input
+            type="text"
+            placeholder="Categoria del quiz"
+            className="input"
+            name="categoria"
+            value={categoria}
+            onChange={onInputChangeQuiz}
+          />
+          <input
+            type="number"
+            placeholder="Cantidad de preguntas"
+            className="input"
+            name="cantPreguntas"
+            value={cantPreguntas}
+            onChange={onInputChangeQuiz}
+          />
+          <input
+            type="number"
+            placeholder="Puntuacion total"
+            className="input"
+            name="puntuacionTotal"
+            value={puntuacionTotal}
+            onChange={onInputChangeQuiz}
+          />
+          <input
+            type="time"
+            placeholder="Hora programada"
+            className="input"
+            name="horaProgramada"
+            value={horaProgramada}
+            onChange={onInputChangeQuiz}
+          />
+          <input
+            type="number"
+            placeholder="Aprobacion"
+            className="input"
+            name="aprobacion"
+            value={aprobacion}
+            onChange={onInputChangeQuiz}
+          />
+          <select name="" id="">
+            {grupo.grupos.map((g) => (
+              <option key={g.ID_1 + g.NOMBRE} value={g.ID_1}>
+                {g.NOMBRE}
+              </option>
+            ))}
+          </select>
         </form>
       </section>
 
       <section className="section">
         <form className="form grid" onSubmit={handleSubmit}>
           <span className="section__title">Contenido</span>
+          <input
+            type="text"
+            placeholder="Titulo de la pregunta"
+            className="input"
+            name="title"
+            value={currentQuestion.title}
+            onChange={handleChange}
+          />
           <input
             type="text"
             placeholder="Contenido de la pregunta"
@@ -204,7 +301,7 @@ export const CreateQuiz = () => {
               Agregar opción
             </button>
             <div className="button-container">
-              <button type="button" onClick={handleSubmit}>
+              <button type="button" onClick={handleAddQuestion}>
                 {editIndex !== null ? "Guardar edición" : "Agregar pregunta"}
               </button>
             </div>
@@ -214,6 +311,7 @@ export const CreateQuiz = () => {
               <span className="">
                 <b>Pregunta {index + 1}</b>
               </span>
+              <div>Titulo: {question.title}</div>
               <div>Contenido: {question.content}</div>
               <div>Calificación: {question.grade}</div>
               <div>¿Es pública?: {question.isPublic ? "Sí" : "No"}</div>

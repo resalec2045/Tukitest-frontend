@@ -6,14 +6,17 @@ import { useQuizStore } from "../../hooks/useQuizStore";
 import { QuizSection } from "./QuizSection";
 import { Loading } from "../../components/loading/Loading";
 import { useSelector } from "react-redux";
+import { useAuthStore } from "../../hooks/useAuthStore";
 // import { useAuthStore } from '../../hooks/useAuthStore';
 
 const QuizDetailsScreen = () => {
   const { startGetQuizByGrupo, quiz } = useQuizStore();
+  const { startGetGroups } = useAuthStore();
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     startGetQuizByGrupo(user.usuario.ID_1);
+    startGetGroups();
   }, []);
 
   if (quiz.quiz === undefined) {

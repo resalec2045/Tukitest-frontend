@@ -51,7 +51,8 @@ export const NavBar = ({ type }) => {
                   </li>
                 </>
               ) : null}
-              {user?.TIPO === "Profesor" || user?.TIPO === "Administrador" ? (
+              {user.usuario?.TIPO === "Profesor" ||
+              user.usuario?.TIPO === "Administrador" ? (
                 <>
                   <li className="nav__item">
                     <a

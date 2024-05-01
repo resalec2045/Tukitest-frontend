@@ -5,14 +5,31 @@ import {
   onLogin,
   onLogout,
   clearErrorMessage,
+  onGroups,
 } from "../store/auth/authSlice";
 
 import tukytestApi from "../api/tukytestApi";
 import Swal from "sweetalert2";
 
 export const useAuthStore = () => {
-  const { status, user, errorMessage } = useSelector((state) => state.auth);
+  const { status, user, grupo, errorMessage } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
+
+  const startGetGroups = async () => {
+    try {
+      const { data } = await tukytestApi.get(
+        `/auth/obtener_grupos/${user.usuario.ID}`
+      );
+
+      dispatch(onGroups({ ...data }));
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
 
   const startLogin = async ({ email, password }) => {
     dispatch(onChecking());
@@ -91,11 +108,13 @@ export const useAuthStore = () => {
     // Propiedades
     status,
     user,
+    grupo,
     errorMessage,
 
     // metodos
     startLogin,
     startRegister,
     startLogout,
+    startGetGroups,
   };
 };

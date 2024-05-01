@@ -98,6 +98,19 @@ export const useQuizStore = () => {
     }
   };
 
+  const startInsertQuiz = async (quiz, listQuestions) => {
+    try {
+      await tukytestApi.post(`/quiz/createQuiz`, {
+        quiz,
+        listQuestions,
+      });
+    } catch (error) {
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
   return {
     // Propiedades
     status,
@@ -110,5 +123,6 @@ export const useQuizStore = () => {
     startGetQuizByGrupo,
     startGetQuestionsByQuiz,
     startInsertOptionsByPerson,
+    startInsertQuiz,
   };
 };
