@@ -10,8 +10,11 @@ import {
   ArcElement,
 } from "chart.js";
 import { NavBar } from "../../components/navbar/NavBar";
-
 import "./InformeScreen.css";
+import { useEffect, useState } from "react";
+import QuizTable from "./components/QuizTable";
+import axios from "axios";
+import QuizTable2 from "./components/QuizTable2";
 
 ChartJS.register(
   CategoryScale,
@@ -24,100 +27,107 @@ ChartJS.register(
 );
 
 export const InformeScreen = () => {
+  const [informe1, setInforme1] = useState([]);
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [informe3, setInforme3] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response1 = await axios.get(
+          "http://localhost:5000/api/quiz/informe1"
+        );
+        if (response1.data.ok) {
+          setInforme1(response1.data.quiz);
+        }
+
+        const response2 = await axios.get(
+          "http://localhost:5000/api/quiz/informe2"
+        );
+        if (response2.data.ok) {
+          const data = response2.data.quiz;
+
+          // Agrupar datos por persona y sumar las notas
+          const groupedData = data.reduce((acc, item) => {
+            const key = `${item.CATEGORIA} (${item.TOTAL_APROBADOS})`;
+            if (!acc[key]) {
+              acc[key] = 0;
+            }
+            acc[key] += item.TOTAL_APROBADOS;
+            return acc;
+          }, {});
+
+          // Preparar labels y data
+          const labels = Object.keys(groupedData);
+          const dataPoints = Object.values(groupedData);
+
+          const formattedData = {
+            labels,
+            datasets: [
+              {
+                label: "Notas Totales por Persona y Grupo",
+                data: dataPoints,
+                backgroundColor: labels.map(
+                  (_, index) =>
+                    `rgba(${(index * 30) % 255}, ${(index * 60) % 255}, ${
+                      (index * 90) % 255
+                    }, 0.2)`
+                ),
+                borderColor: labels.map(
+                  (_, index) =>
+                    `rgba(${(index * 30) % 255}, ${(index * 60) % 255}, ${
+                      (index * 90) % 255
+                    }, 1)`
+                ),
+                borderWidth: 1,
+              },
+            ],
+          };
+
+          setChartData(formattedData);
+        }
+        const response3 = await axios.get(
+          "http://localhost:5000/api/quiz/informe3"
+        );
+        if (response3.data.ok) {
+          setInforme3(response3.data.quiz);
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <NavBar type={"header"} />
 
-      <section className="section flex-center">
-        <table>
-          <thead>
-            <tr>
-              <th>Estudiante</th>
-              <th>Nota</th>
-              <th>Grupo</th>
-              <th>Cantidad de preguntas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Estudiante 1</td>
-              <td>9.5</td>
-              <td>9.5</td>
-              <td>9.5</td>
-            </tr>
-            <tr>
-              <td>Estudiante 2</td>
-              <td>8.7</td>
-              <td>8.7</td>
-              <td>8.7</td>
-            </tr>
-          </tbody>
-        </table>
+      <section className="section flex-center grafico_pastel">
+        <h1>Notas totales por grupo</h1>
+        <div className="pastel flex-center">
+          <Doughnut
+            data={chartData}
+            options={{ responsive: true, maintainAspectRatio: false }}
+          />
+        </div>
       </section>
-      <section className="section flex-center">
-        <div className="pastel">
-          <Doughnut data={data} />
-          <Bar options={options} data={data2} />
+      <section className="section flex-center grafico_pastel">
+        <h1>Notas por persona de quiz</h1>
+        <div className="container">
+          <QuizTable2 data={informe3} />
+        </div>
+      </section>
+      <section className="section flex-center grafico_pastel">
+        <h1>Notas totales por grupo</h1>
+        <div className="container">
+          <QuizTable data={informe1} />
         </div>
       </section>
     </>
   );
-};
-
-export const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Chart.js Bar Chart",
-    },
-  },
-};
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data2 = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: labels.map(() => Math.random() * (1000 - 0)),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => Math.random() * (1000 - 0)),
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
 };

@@ -1,10 +1,11 @@
 import "./ResultScreen.css"; // Importar los estilos CSS clásicos
 
 import { useQuiz } from "../../context/QuizContext";
-
+import html2canvas from "html2canvas";
 import ResultOverview from "./ResultOverview/ResultOverview";
 import RightAnswer from "./RightAnswer/RightAnswer";
 import { NavBar } from "../../components/navbar/NavBar";
+import { useEffect } from "react";
 
 const ResultScreen = () => {
   const { result } = useQuiz();
@@ -16,6 +17,17 @@ const ResultScreen = () => {
         : res.options.filter((ans) => ans.ESCORRECTA === "S")
     )
     .flat();
+
+  useEffect(() => {
+    const element = document.querySelector(".InnerContainer");
+
+    html2canvas(element).then((canvas) => {
+      let enlace = document.createElement("a");
+      enlace.download = "Captura.png";
+      enlace.href = canvas.toDataURL();
+      enlace.click();
+    });
+  }, []);
 
   return (
     <>
@@ -89,15 +101,7 @@ const ResultScreen = () => {
               }
             )}
           </div>
-          {/* <div className="flex flxEnd">
-            <Button
-              text="RETRY"
-              //   onClick={}
-              //   icon={<Refresh />}
-              iconPosition="left"
-              bold
-            />
-          </div> */}
+          <div className="flex flxEnd"></div>
         </div>
       </div>
     </>

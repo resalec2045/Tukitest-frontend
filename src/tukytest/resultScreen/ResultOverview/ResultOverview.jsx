@@ -32,11 +32,6 @@ const ResultOverview = ({ result }) => {
       <p>
         Score secured: <span className="HighlightedText">{obtainedScore}</span>
       </p>
-      {/* TODO: ARREGLAR EL TIEMPO (NO FUNCINOA PORQUE CADA QUE SE RECARGA LA PANTALLA SE REINICA EL "USEQUIZ") */}
-      <p>
-        Time Spent:
-        <span className="HighlightedText">{convertSeconds(endTime)}</span>
-      </p>
       <p>
         Status: <span className="HighlightedText">{calculateStatus}</span>
       </p>

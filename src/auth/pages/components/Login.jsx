@@ -61,11 +61,6 @@ export const Login = ({ selectPage }) => {
               </div>
               <input className="submit-button" type="submit" value="Ingrese" />
             </form>
-            <div className="links">
-              <a className="" onClick={() => selectPage("Register")}>
-                Registrese
-              </a>
-            </div>
           </div>
         </div>
       </main>

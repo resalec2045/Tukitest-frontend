@@ -2,3 +2,7 @@
   width: 500px;
   height: 300px;
 }
+.grafico_pastel {
+  flex-direction: column;
+  gap: 50px;
+}
